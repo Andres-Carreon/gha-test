@@ -7,7 +7,7 @@ const { chromium } = require('playwright');
 
   // Validate the text "The Free Encyclopedia" is displayed
   const text = await page.textContent('strong');
-  if (text.includes('Andres was here')) {
+  if (text.includes('The Free Encyclopedia')) {
     console.log('Validation passed: "The Free Encyclopedia" is displayed');
   } else {
     console.error('Validation failed: "The Free Encyclopedia" is not displayed');
