@@ -1,0 +1,48 @@
+name: QA Performance Automation
+
+on:
+  schedule:
+    - cron: '0 */1 * * *'
+  push:
+    branches: ["tm/gha-tuning"]
+  workflow_dispatch:
+  # Allows you to run this workflow manually from the Actions tab
+
+env:
+  owner: "ExodusMovement"
+  repository: "exodus-mobile"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
+
+    steps:
+      - name: Env info check
+        run: |
+          echo '--- SHELL check ---'
+          echo '$SHELL: ' `echo $SHELL`
+          echo '$BASH_VERSION ' `echo $BASH_VERSION`
+          echo '--- user check ---'
+          echo 'whoami:' `whoami`
+          echo '$HOME:' $HOME
+          echo 'pwd:' `pwd`
+          echo '~:' `echo ~`
+          echo '--- PATH check ---'
+          echo '$PATH:' $PATH
+          echo '--- version check ---'
+          echo 'watchman version: ' `watchman --version`
+          echo 'maestro version: ' `maestro -v`
+          echo 'nvm version: ' `nvm -v`
+          echo 'node version: ' `node -v`
+          echo 'yarn version: ' `yarn -v`
+
+      - uses: actions/checkout@v3
+      - name: Clone exodus-mobile repository
+        run: |
+          eval "$(ssh-agent -s)"
+          echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add $HOME/.ssh/id_ed25519
+          ssh-keyscan github.com >> $HOME/.ssh/known_hosts
+          git clone git@github.com:${{ env.owner }}/${{ env.repository }}.git
