@@ -38,12 +38,9 @@ jobs:
           echo 'nvm version: ' `nvm -v`
           echo 'node version: ' `node -v`
           echo 'yarn version: ' `yarn -v`
-          echo npx playwright --version
-
-      - name: npm install
-        run: npm install
+          echo 'playwright version: ' `npx playwright --version`
 
       - name: install playwright
         run: |
           npx playwright install
-          echo npx playwright --version
+          echo 'playwright version: ' `npx playwright --version`
