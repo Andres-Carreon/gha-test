@@ -1,4 +1,4 @@
-name: QA Performance Automation
+name: clone repo
 
 on:
   schedule:
