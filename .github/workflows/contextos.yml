@@ -1,0 +1,8 @@
+name: contexto
+on:
+    workflow_dispatch:
+jobs:
+    check-branch:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "Desplegando en la rama $GITHUB_REF

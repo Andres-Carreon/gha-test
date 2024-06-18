@@ -5,7 +5,7 @@ on:
             edad:
                 description: 'Edad'
                 required: true
-                type: integer
+                type: number
             nombre:
                 description: 'Tu nombre'
                 required: true
