@@ -42,5 +42,6 @@ jobs:
 
       - name: install playwright
         run: |
+          npm install
           npx playwright install
-          echo: npx playwright --version
+          echo npx playwright --version
