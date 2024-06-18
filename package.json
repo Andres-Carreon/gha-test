@@ -1,0 +1,11 @@
+{
+    "name": "playwright-example",
+    "version": "1.0.0",
+    "scripts": {
+      "test": "node wikipedia.test.js"
+    },
+    "dependencies": {
+      "playwright": "^1.34.0"
+    }
+  }
+  
