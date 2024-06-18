@@ -40,8 +40,10 @@ jobs:
           echo 'yarn version: ' `yarn -v`
           echo npx playwright --version
 
+      - name: npm install
+        run: npm install
+
       - name: install playwright
         run: |
-          npm install
           npx playwright install
           echo npx playwright --version
