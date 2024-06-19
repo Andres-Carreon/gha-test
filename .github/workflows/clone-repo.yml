@@ -88,6 +88,8 @@ jobs:
       - name: Print package.json content
         run: |
           cat package.json
+          pwd
+          ls -la
 
       - name: Use Node.js 18.17.1
         run: |
