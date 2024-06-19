@@ -85,6 +85,10 @@ jobs:
           ls -al
           git branch
 
+      - name: Print package.json content
+        run: |
+          cat package.json
+
       - name: Use Node.js 18.17.1
         run: |
           nvm install 18.17.1
