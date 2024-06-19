@@ -74,8 +74,8 @@ jobs:
 
       - name: List contents of current directory
         run: |
-          ls -la
           cd exodus-browser
+          ls -la
 
       - name: Use Node.js 18.17.1
         run: |
