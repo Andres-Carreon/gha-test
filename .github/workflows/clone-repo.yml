@@ -88,11 +88,6 @@ jobs:
           pwd
           ls -la
 
-      - name: Print package.json content
-        run: |
-          cat package.json
-          pwd
-          ls -la
 
       - name: Use Node.js 18.17.1
         run: |
@@ -103,6 +98,11 @@ jobs:
 
       - name: Run yarn and yarn dev
         run: |
+          cd exodus-browser
+          cd apps
+          cd browser
+          cat package.json
+          pwd
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           yarn
           yarn dev
