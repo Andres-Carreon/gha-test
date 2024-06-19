@@ -88,7 +88,6 @@ jobs:
           pwd
           ls -la
 
-
       - name: Use Node.js 18.17.1
         run: |
           nvm install 18.17.1
@@ -96,7 +95,7 @@ jobs:
           echo 'node version: ' `node -v`
           echo 'npm version: ' `npm -v`
 
-      - name: Run yarn and yarn dev
+      - name: Run yarn and yarn dev with timeout
         run: |
           cd exodus-browser
           cd apps
@@ -108,5 +107,4 @@ jobs:
           echo 'npm version: ' `npm -v`
           pwd
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          yarn
-          yarn dev
+          timeout 5m yarn dev  # Run yarn dev with a 5-minute timeout
