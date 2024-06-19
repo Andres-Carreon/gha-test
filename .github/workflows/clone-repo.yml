@@ -39,7 +39,6 @@ jobs:
           echo 'node version: ' `node -v`
           echo 'yarn version: ' `yarn -v`
           echo 'playwright version: ' `npx playwright --version`
-          echo `ls`
 
       - name: install playwright
         run: |
@@ -68,10 +67,24 @@ jobs:
           echo "Cloned repository location:"
           echo "$(pwd)/exodus-browser"
 
-      - name: Navigate to cloned repository and run yarn
+      - name: Navigate to cloned repository
         run: |
           cd exodus-browser
           echo "Current directory: $(pwd)"
+
+      - name: List contents of current directory
+        run: |
+          ls -la
+
+      - name: Use Node.js 18.17.1
+        run: |
+          nvm install 18.17.1
+          nvm use 18.17.1
+          echo 'node version: ' `node -v`
+          echo 'npm version: ' `npm -v`
+
+      - name: Run yarn and yarn dev
+        run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           yarn
           yarn dev
