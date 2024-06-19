@@ -83,6 +83,7 @@ jobs:
           cd browser
           echo "browser list"
           ls -al
+          git branch
 
       - name: Use Node.js 18.17.1
         run: |
