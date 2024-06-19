@@ -39,6 +39,7 @@ jobs:
           echo 'node version: ' `node -v`
           echo 'yarn version: ' `yarn -v`
           echo 'playwright version: ' `npx playwright --version`
+          echo `ls`
 
       - name: install playwright
         run: |
@@ -47,20 +48,20 @@ jobs:
 
       - name: Checkout app repository
         uses: actions/checkout@v2
-    
+
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-    
+
       - name: Debug SSH key
         run: |
           ls -la ~/.ssh
           cat ~/.ssh/id_rsa
           ssh -T git@github.com || true
-    
+
       - name: Clone exodus-browser repository
         run: |
           git clone git@github.com:ExodusMovement/exodus-browser.git
@@ -71,5 +72,6 @@ jobs:
         run: |
           cd exodus-browser
           echo "Current directory: $(pwd)"
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           yarn
           yarn dev
