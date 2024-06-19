@@ -76,6 +76,9 @@ jobs:
         run: |
           cd exodus-browser
           ls -la
+          cd apps
+          ls -la
+          cd browser
 
       - name: Use Node.js 18.17.1
         run: |
