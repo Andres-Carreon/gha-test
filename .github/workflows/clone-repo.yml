@@ -61,5 +61,15 @@ jobs:
           cat ~/.ssh/id_rsa
           ssh -T git@github.com || true
     
-      - name: Clone tests repository
-        run: git clone git@github.com:ExodusMovement/exodus-browser.git tests
+      - name: Clone exodus-browser repository
+        run: |
+          git clone git@github.com:ExodusMovement/exodus-browser.git
+          echo "Cloned repository location:"
+          echo "$(pwd)/exodus-browser"
+
+      - name: Navigate to cloned repository and run yarn
+        run: |
+          cd exodus-browser
+          echo "Current directory: $(pwd)"
+          yarn
+          yarn dev
