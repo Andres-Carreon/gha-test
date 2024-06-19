@@ -75,10 +75,14 @@ jobs:
       - name: List contents of current directory
         run: |
           cd exodus-browser
+          echo "exodus browser list"
           ls -la
           cd apps
+          echo "apps list"
           ls -la
           cd browser
+          echo "browser list"
+          ls -al
 
       - name: Use Node.js 18.17.1
         run: |
