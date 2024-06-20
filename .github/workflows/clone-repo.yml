@@ -1,10 +1,6 @@
 name: clone repo
 
 on:
-  schedule:
-    - cron: '0 */1 * * *'
-  push:
-    branches: ["tm/gha-tuning"]
   workflow_dispatch:
   # Allows you to run this workflow manually from the Actions tab
 
@@ -107,9 +103,12 @@ jobs:
           echo 'npm version: ' `npm -v`
           pwd
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          yarn
-          # Run yarn dev and wait for the specific message
-          ( yarn dev & ) | grep -q '｢wdm｣: Compiled successfully.'
+          # Run yarn dev in the background
+          ( yarn dev & )
+          # Save the PID of the yarn dev process
+          PID=$!
+          # Wait for the specific message and then kill the yarn dev process
+          tail -f --pid=$PID nohup.out | { grep -q '｢wdm｣: Compiled successfully.' && kill -INT $PID; }
 
       - name: Next step after compilation
         run: |
