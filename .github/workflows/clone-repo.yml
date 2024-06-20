@@ -1,10 +1,6 @@
 name: clone repo
 
 on:
-  schedule:
-    - cron: '0 */1 * * *'
-  push:
-    branches: ["tm/gha-tuning"]
   workflow_dispatch:
   # Allows you to run this workflow manually from the Actions tab
 
@@ -88,15 +84,14 @@ jobs:
           pwd
           ls -la
 
-
-      - name: Use Node.js 18.17.1
+      - name: Use Node.js 20.9.0
         run: |
           nvm install 20.9.0
           nvm use 20.9.0
           echo 'node version: ' `node -v`
           echo 'npm version: ' `npm -v`
 
-      - name: Run yarn and yarn dev
+      - name: Run yarn and yarn dev and wait
         run: |
           cd exodus-browser
           cd apps
@@ -109,4 +104,10 @@ jobs:
           pwd
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           yarn
-          yarn dev
+          (yarn dev &)
+          sleep 180  # Wait for 3 minutes
+
+      - name: Next step after waiting
+        run: |
+          echo "Waited for 3 minutes. Proceeding to the next step."
+          # Add your next commands here
