@@ -108,9 +108,5 @@ jobs:
           echo 'npm version: ' `npm -v`
           pwd
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          timeout 5m bash -c "
-          trap 'kill -INT \$PID' SIGINT;
-          yarn dev &
-          PID=\$!
-          wait \$PID
-          "
+          yarn
+          yarn dev
