@@ -91,8 +91,8 @@ jobs:
 
       - name: Use Node.js 18.17.1
         run: |
-          nvm install 18.17.1
-          nvm use 18.17.1
+          nvm install 20.9.0
+          nvm use 20.9.0
           echo 'node version: ' `node -v`
           echo 'npm version: ' `npm -v`
 
@@ -102,8 +102,8 @@ jobs:
           cd apps
           cd browser
           cat package.json
-          nvm install 18.17.1
-          nvm use 18.17.1
+          nvm install 20.9.0
+          nvm use 20.9.0
           echo 'node version: ' `node -v`
           echo 'npm version: ' `npm -v`
           pwd
