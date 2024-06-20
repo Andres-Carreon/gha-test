@@ -1,6 +1,10 @@
 name: clone repo
 
 on:
+  schedule:
+    - cron: '0 */1 * * *'
+  push:
+    branches: ["tm/gha-tuning"]
   workflow_dispatch:
   # Allows you to run this workflow manually from the Actions tab
 
@@ -91,6 +95,11 @@ jobs:
           echo 'node version: ' `node -v`
           echo 'npm version: ' `npm -v`
 
+      - name: Install browser-extension CLI
+        run: |
+          cd exodus-browser
+          yarn global add @exodus/browser-extension-cli
+
       - name: Run yarn and yarn dev and wait for compilation
         run: |
           cd exodus-browser
@@ -104,11 +113,11 @@ jobs:
           pwd
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           # Run yarn dev in the background
-          ( yarn dev & )
+          ( yarn dev & ) > nohup.out 2>&1 &
           # Save the PID of the yarn dev process
           PID=$!
           # Wait for the specific message and then kill the yarn dev process
-          tail -f --pid=$PID nohup.out | { grep -q '｢wdm｣: Compiled successfully.' && kill -INT $PID; }
+          tail -f nohup.out | { grep -q '｢wdm｣: Compiled successfully.' && kill -INT $PID; }
 
       - name: Next step after compilation
         run: |
