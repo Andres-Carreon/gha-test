@@ -103,8 +103,7 @@ jobs:
           echo 'list before yarn'
           ls -la
           yarn
-          (yarn dev &)
-          sleep 180  # Wait for 3 minutes
+          yarn build
           echo 'list after yarn'
           ls -la
 
