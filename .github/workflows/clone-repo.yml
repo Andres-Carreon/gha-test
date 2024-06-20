@@ -88,15 +88,14 @@ jobs:
           pwd
           ls -la
 
-
-      - name: Use Node.js 18.17.1
+      - name: Use Node.js 20.9.0
         run: |
           nvm install 20.9.0
           nvm use 20.9.0
           echo 'node version: ' `node -v`
           echo 'npm version: ' `npm -v`
 
-      - name: Run yarn and yarn dev
+      - name: Run yarn and yarn dev and wait for compilation
         run: |
           cd exodus-browser
           cd apps
@@ -109,4 +108,10 @@ jobs:
           pwd
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           yarn
-          yarn dev
+          # Run yarn dev and wait for the specific message
+          ( yarn dev & ) | grep -q '｢wdm｣: Compiled successfully.'
+
+      - name: Next step after compilation
+        run: |
+          echo "Compilation successful. Proceeding to the next step."
+          # Add your next commands here
