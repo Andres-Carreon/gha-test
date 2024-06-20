@@ -30,7 +30,6 @@ jobs:
           echo '$PATH:' $PATH
           echo '--- version check ---'
           echo 'watchman version: ' `watchman --version`
-          echo 'maestro version: ' `maestro -v`
           echo 'nvm version: ' `nvm -v`
           echo 'node version: ' `node -v`
           echo 'yarn version: ' `yarn -v`
@@ -80,7 +79,6 @@ jobs:
           echo "browser list"
           ls -al
           git branch
-          cat package.json
           pwd
           ls -la
 
@@ -96,18 +94,22 @@ jobs:
           cd exodus-browser
           cd apps
           cd browser
-          cat package.json
           nvm install 20.9.0
           nvm use 20.9.0
           echo 'node version: ' `node -v`
           echo 'npm version: ' `npm -v`
           pwd
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          echo 'list before yarn'
+          ls -la
           yarn
           (yarn dev &)
           sleep 180  # Wait for 3 minutes
+          echo 'list after yarn'
+          ls -la
 
       - name: Next step after waiting
         run: |
           echo "Waited for 3 minutes. Proceeding to the next step."
-          # Add your next commands here
+          pwd
+          ls -la
